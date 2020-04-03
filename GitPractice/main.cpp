@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 /// Napisati klasu koja predstavlja Jednakokraki torugao.
 /// Klasa treba da sadrzi prazan konstruktor, konstruktor sa parametrima,
@@ -11,18 +12,47 @@ using namespace std;
 class JednakokrakiTrougao
 {
 private:
-    int a;
-    int b;
-    int c;
+    float a = 3;
+    float b = 4;
+    float c = 5;
 public:
     JednakokrakiTrougao(){}
-    JednakokrakiTrougao(int aa, int bb, int cc)
+    JednakokrakiTrougao(float aa, float bb, float cc)
     {
         a = aa; b = bb; c = cc;
     }
-    void setA(int aa)
+    void setA(float aa)
     {
         a = aa;
+    }
+    void setB(float bb)
+    {
+        b = bb;
+    }
+    void setC(float cc)
+    {
+        c = cc;
+    }
+    float getA()
+    {
+        return a;
+    }
+    float getB()
+    {
+        return b;
+    }
+    float getC()
+    {
+        return c;
+    }
+    float returnObim()
+    {
+        return a + b + c;
+    }
+    float returnPovrsina()
+    {
+        float x = (a + b + c) * 0.5;
+        return sqrt(x * (x - a) * (x - b) * (x - c));
     }
 };
 
