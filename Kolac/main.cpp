@@ -1,15 +1,15 @@
 #include <iostream>
 using namespace std;
 
-enum TipPreliva {COKOLADNI, COKOLADNI_SA_SLAGOM};
-enum KolacStanje {U_PRIPREMI, PECE_SE, ZAGOREO, PRIPREMLJEN};
+enum TipPreliva {COKOLADNI = 1, COKOLADNI_SA_SLAGOM};
+enum KolacStanje {U_PRIPREMI = 1, PECE_SE, ZAGOREO, PRIPREMLJEN};
 
 class Preliv
 {
 private:
     TipPreliva tip;
 public:
-    Preliv(TipPreliva t = COKOLADNI){}
+    Preliv(TipPreliva t = COKOLADNI) {}
     bool dodajSlag()
     {
         if(tip == COKOLADNI)
@@ -28,22 +28,41 @@ public:
         }
         return false;
     }
-    TipPreliva getPreliv(){return tip;}
-    void ispisiPreliv(const Preliv &t)
+    TipPreliva getPreliv()const
+    {
+        return tip;
+    }
+    void ispisiPreliv()
     {
         cout << "-------------------" << endl << "Preliv: ";
-        switch(t.tip)
+        switch(tip)
         {
-            case COKOLADNI:
-                cout << "COKOLADNI" << endl;
-                break;
-            case COKOLADNI_SA_SLAGOM:
-                cout << "COKOLADNI_SA_PRELIVOM" << endl;
-                break;
+        case COKOLADNI:
+            cout << "COKOLADNI" << endl;
+            break;
+        case COKOLADNI_SA_SLAGOM:
+            cout << "COKOLADNI_SA_PRELIVOM" << endl;
+            break;
         }
         cout << "-------------------" << endl;
     }
+
 };
+
+void ispisiPreliv(const Preliv &t)
+{
+    cout << "-------------------" << endl << "Preliv: ";
+    switch(t.getPreliv())
+    {
+    case COKOLADNI:
+        cout << "COKOLADNI" << endl;
+        break;
+    case COKOLADNI_SA_SLAGOM:
+        cout << "COKOLADNI_SA_PRELIVOM" << endl;
+        break;
+    }
+    cout << "-------------------" << endl;
+}
 
 class Kolac
 {
@@ -52,18 +71,35 @@ private:
     int temperatura;
     Preliv preliv;
 public:
-    Kolac()
+    Kolac() : preliv()
     {
         stanje = U_PRIPREMI;
         temperatura = 20;
-        preliv = COKOLADNI;
+
     }
-    Kolac(Kolac &k)
+    Kolac(const Kolac &k) : preliv(k.preliv.getPreliv())
     {
         stanje = k.stanje;
         temperatura = k.temperatura;
-        preliv = k.preliv;
     }
+    bool staviDaSePece()
+    {
+        if(preliv.getPreliv() == COKOLADNI_SA_SLAGOM)
+        {
+            stanje = PECE_SE;
+            return true;
+        }
+        return false;
+    }
+    bool ispeciKolac()
+    {
+
+    }
+    bool zavrsiKolac(){}
+    bool povecajTemperaturu(){}
+    bool smanjiTemperaturu(){}
+    bool dodajSlag(){}
+    bool ukloniSlag(){}
 };
 
 int main()
